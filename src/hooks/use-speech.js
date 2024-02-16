@@ -10,7 +10,19 @@ function useSpeech() {
   const synth = window.speechSynthesis;
 
   const speak = (selectedVoice) => {
-    speakCustomText(textToHighlight, selectedVoice);
+    // Overwrite anything being played atm
+    synth.cancel();
+    const utterance = new SpeechSynthesisUtterance(textToSpeak);
+    utterance.voice = selectedVoice;
+    utterance.pitch = pitch;
+    utterance.onboundary = (e) => {
+      console.log(e.charIndex);
+      setTextToHighlight(textToSpeak.slice(0, e.charIndex));
+    };
+
+    utterance.onend = () => setTextToHighlight(textToSpeak);
+
+    synth.speak(utterance);
   };
 
   const speakCustomText = (text, selectedVoice) => {
