@@ -8,7 +8,7 @@ const Generate = () => {
   const msg = new SpeechSynthesisUtterance();
 
   useEffect(() => {
-    const speechSynthesisVoices = window.speechSynthesis.getVoices();
+    const voices = window.speechSynthesis.getVoices();
     // const firstFourVoices = speechSynthesisVoices.slice(0, 4);
 
     setVoices(voices);
@@ -44,6 +44,9 @@ const Generate = () => {
     const selectedOption = event.target.value;
     const voice = voices.find((voice) => voice.name === selectedOption);
     setSelectedVoice(voice);
+  };
+  const handlePause = (msg) => {
+    window.speechSynthesis.addEventListener(msg);
   };
 
   return (
@@ -89,6 +92,7 @@ const Generate = () => {
         >
           Speak
         </button>
+
         <button
           onClick={() => errorHandler(msg)}
           type="button"
@@ -102,6 +106,13 @@ const Generate = () => {
           className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
         >
           Thanks
+        </button>
+        <button
+          onClick={() => handlePause(msg)}
+          type="button"
+          className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+        >
+          Pause
         </button>
       </div>
     </div>
