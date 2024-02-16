@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "escape-string-regexp": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-highlight-words": "^0.20.0",
     "react-text-to-speech": "^0.9.0"
   },
   "devDependencies": {
