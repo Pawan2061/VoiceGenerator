@@ -1,6 +1,7 @@
 import { useSpeechSelector } from "../hooks/use-voice-selector";
 import { useSpeech } from "../hooks/use-speech";
 import Highlighter from "react-highlight-words";
+import escapeStringRegexp from "escape-string-regexp";
 
 const GeneratorVoice = () => {
   const { voices, selectedVoice, handleVoiceChange } = useSpeechSelector();
@@ -119,7 +120,7 @@ const GeneratorVoice = () => {
       {/* TODO: Fix this for Error & Thanks */}
       <Highlighter
         highlightClassName="bg-blue-200"
-        searchWords={[new RegExp(`^${textToHighlight}`)]}
+        searchWords={[new RegExp(`^${escapeStringRegexp(textToHighlight)}`)]}
         textToHighlight={textToSpeak}
       />
     </div>
