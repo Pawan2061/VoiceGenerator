@@ -1,5 +1,6 @@
 import { useSpeechSelector } from "../hooks/use-voice-selector";
 import { useSpeech } from "../hooks/use-speech";
+import Highlighter from "react-highlight-words";
 
 const GeneratorVoice = () => {
   const { voices, selectedVoice, handleVoiceChange } = useSpeechSelector();
@@ -12,6 +13,7 @@ const GeneratorVoice = () => {
     reset,
     pitch,
     setPitch,
+    textToHighlight,
   } = useSpeech();
 
   const speechHandler = () => {
@@ -84,7 +86,6 @@ const GeneratorVoice = () => {
         >
           Thanks
         </button>
-        {/* TODO: toggle pause and resume state in btn */}
         <button
           onClick={() => togglePause()}
           type="button"
@@ -92,7 +93,6 @@ const GeneratorVoice = () => {
         >
           pause
         </button>
-        {/* Reset Btn */}
         <button
           onClick={() => reset()}
           type="button"
@@ -104,17 +104,24 @@ const GeneratorVoice = () => {
         <div>
           <input
             type="range"
-            id="cowbell"
-            name="cowbell"
+            id="pitch"
+            name="pitch"
             min="0"
             max="2"
             step="0.25"
             value={pitch}
             onChange={(e) => setPitch(e.target.value)}
           />
-          <label htmlFor="cowbell">Adjust Pitch {pitch}</label>
+          <label htmlFor="pitch">Adjust Pitch {pitch}</label>
         </div>
       </div>
+
+      {/* TODO: Fix this for Error & Thanks */}
+      <Highlighter
+        highlightClassName="bg-blue-200"
+        searchWords={[new RegExp(`^${textToHighlight}`)]}
+        textToHighlight={textToSpeak}
+      />
     </div>
   );
 };

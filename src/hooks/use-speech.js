@@ -2,30 +2,29 @@ import { useEffect, useState } from "react";
 
 function useSpeech() {
   const [textToSpeak, setTextToSpeak] = useState("");
+  const [textToHighlight, setTextToHighlight] = useState("");
+
   const [isPaused, setIsPaused] = useState(false);
   const [pitch, setPitch] = useState(1);
 
   const synth = window.speechSynthesis;
 
   const speak = (selectedVoice) => {
-    // Overwrite anything being played atm
-    synth.cancel();
-    const utterance = new SpeechSynthesisUtterance(textToSpeak);
-    utterance.voice = synth.getVoices()[selectedVoice];
-    utterance.pitch = pitch;
-    utterance.onboundary = (e) => {
-      console.log(e.charIndex);
-    };
-
-    synth.speak(utterance);
+    speakCustomText(textToHighlight, selectedVoice);
   };
 
   const speakCustomText = (text, selectedVoice) => {
     // Overwrite anything being played atm
     synth.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.voice = synth.getVoices()[selectedVoice];
+    utterance.voice = selectedVoice;
     utterance.pitch = pitch;
+    utterance.onboundary = (e) => {
+      console.log(e.charIndex);
+      setTextToHighlight(textToSpeak.slice(0, e.charIndex));
+    };
+
+    utterance.onend = () => setTextToHighlight(textToSpeak);
 
     synth.speak(utterance);
   };
@@ -51,6 +50,7 @@ function useSpeech() {
     reset,
     pitch,
     setPitch,
+    textToHighlight,
   };
 }
 
