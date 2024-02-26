@@ -1,5 +1,5 @@
 import "./App.css";
-import Generate from "./component/GeneratorVoice";
+import Generate from "./component/Generate";
 
 function App() {
   return (

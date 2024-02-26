@@ -26,7 +26,6 @@ function useSpeech() {
   };
 
   const speakCustomText = (text, selectedVoice) => {
-    // Overwrite anything being played atm
     synth.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.voice = selectedVoice;
