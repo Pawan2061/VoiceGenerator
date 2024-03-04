@@ -30,7 +30,7 @@ const Generate = () => {
   };
 
   const thanksHandler = () => {
-    const a = Math.floor(Math.random() * 9);
+    const a = Math.floor(Math.random() * 5);
     const thanksMsg = thanksMessages[a];
 
     speakCustomText(thanksMsg, selectedVoice);
